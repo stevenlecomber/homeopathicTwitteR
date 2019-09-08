@@ -1,26 +1,21 @@
-#' Carry out serial dilutions
+#' Single dilution
 #'
-#' Carries out serial dilutions of text strings.
+#' Carries out single dilution of text strings.
 #'
-#' @param input original text
-#' @param dilution dilution strength
-#' @param reps number of serial dilutions
-#' @param intermediates whether or not to show intermediate steps
+#' @param original original text
+#' @param diluteBy dilution strength
 #' 
-#' @export
+#' @export diluteTweet
 #' @examples
-#' serialDilute("blah", 100, 30, FALSE)
+#' diluteTweet("blah", 20)
 
-serialDilute <- function(input, dilution, reps, intermediates=FALSE)
-	{	
-		# first define function for single dilution
-		diluteTweet <- function(original, dilution)
+diluteTweet <- function(original, diluteBy)
 			{
 				inputTweet <- original
 				stringLength <- nchar(inputTweet)
 	
 				# dilution solution
-				dilution <- paste(sample(c(" ", ". ", letters), (dilution*stringLength), replace=TRUE), collapse="")
+				dilution <- paste(sample(c(" ", ". ", letters), (diluteBy*stringLength), replace=TRUE), collapse="")
 				# add tweet to solution
 				diluted <- paste(inputTweet, dilution, collapse="")
 				lengthDiluted <- nchar(diluted)
@@ -36,6 +31,23 @@ serialDilute <- function(input, dilution, reps, intermediates=FALSE)
 				return(newTweet)
 			}
 
+#------------------------------------------------
+#' Serial dilution
+#'
+#' Carries out single dilution of text strings.
+#'
+#' @param input original text
+#' @param dilution dilution strength
+#' @param reps number of serial dilutions
+#' @param intermediates whether or not to show intermediate steps
+#' 
+#' @export serialDilution
+#' @examples
+#' serialDilute("blah", 100, 30, FALSE)
+
+serialDilute <- function(input, dilution, reps, intermediates=FALSE)
+	{	
+		
 		# loop for number of serial dilutions
 		current <- input
 		for(i in 1:reps)
